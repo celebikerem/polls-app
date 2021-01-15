@@ -1,25 +1,15 @@
-import React, { useEffect, useState } from 'react';
-import axios from 'axios';
-import QuestionCard from './components/QuestionCard.js';
+import React from 'react';
+import { Router } from 'react-router-dom';
+import routes, { renderRoutes } from './routes';
+import { createBrowserHistory } from 'history';
+
+const history = createBrowserHistory();
 
 function App() {
-
-  const [questions, setQuestions] = useState([]);
-
-  useEffect(() => {
-    axios
-      .get('https://polls.apiblueprint.org/questions')
-      .then(response => {
-        setQuestions(response.data)
-      })
-  })
-
   return (
-    <div className="App">
-      {
-        questions.map(question => <QuestionCard question={question} />)
-      }
-    </div>
+    <Router history={history}>
+      {renderRoutes(routes)}
+    </Router>
   );
 }
 
